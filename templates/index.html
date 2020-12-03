@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+
+<head>
+  <meta charset="UTF-8">
+  <title>IMAGE SEARCH API</title>
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../static/css/style.css" type="text/css">
+
+
+</head>
+
+<body style="overflow-y: scroll;">
+  <div class="container" style="margin-top:30px;">
+    <h4>IMAGE SEARCH ENGINE</h4>
+    <p>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+    <ul class=flashes>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    </p>
+
+    <div id="uploadForm" style="width: 60%;margin-left: auto;margin-right: auto;">
+    <!-- Main Input For Receiving Query to our ML -->
+    <form action="/" method="post" enctype="multipart/form-data">
+      <input type="file" class="" name="sample_image" placeholder="Upload Sample Image" required="required" />
+
+      <br>
+      <br>
+      <button type="submit" class="btn btn-primary btn-block btn-large">Search</button>
+    </form>
+
+  </div>
+
+    <br>
+    <br>
+
+    {{ prediction_text }}
+
+
+    <div id="imagesDisplay" class="container" style="position:relative;height:auto">
+      <div class="row" align="center" id="uploadedImage">
+        {% if uploadedImage %}
+
+        <div class="col">
+     
+          <h5>Sample Image </h5>
+        <img src="{{url_for('display_image',result_image_name=uploadedImage)}}" height="150px" width="150px" alt=" ">
+      </div>
+      {% endif %}
+    </div>
+      <br>
+      <div class="row" id="predictedImages">
+       
+        {% if NearestImageList %}
+          {% for filename in NearestImageList %}
+               
+        <div class="col">
+          <h5>Nearest Image </h5>
+          <img src="{{url_for('display_image',result_image_name=filename)}}" height="150px" width="150px" alt="Nearest Image">
+        </div>
+           {% endfor %}
+        {% endif %}
+
+
+        <!-- <div class="col">
+          <h5>Nearest Image 2</h5>
+          <img src="static\dataset\caltech101\accordion\image_0001.jpg" height="150px" width="150px">
+        </div>
+        <div class="col">
+          <h5>Nearest Image 3</h5>
+          <img src="static\dataset\caltech101\accordion\image_0001.jpg" height="150px" width="150px">
+        </div>
+        <div class="col">
+          <h5>Nearest Image 4</h5>
+          <img src="static\dataset\caltech101\accordion\image_0001.jpg" height="150px" width="150px">
+        </div>
+        <div class="col">
+          <h5>Nearest Image 5</h5>
+          <img src="static\dataset\caltech101\accordion\image_0001.jpg" height="150px" width="150px">
+        </div> -->
+        <br>
+      </div>
+
+    </div>
+<br>
+<br><br>
+  </div>
+
+
+</body>
+
+</html>
