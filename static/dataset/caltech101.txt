@@ -1,3 +1,5 @@
 Download the caltech101 dataset from 
 
 https://drive.google.com/file/d/137RyRjvTBkBiIfeYBNZBtViDHQ6_Ewsp/view
+
+and extract and rename the folder as 'caltech101'
